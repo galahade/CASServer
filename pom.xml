@@ -12,6 +12,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-jetty-plugin.version>9.3.0.v20150612</maven-jetty-plugin.version>
+		<com.mchange.c3p0>0.9.5.1</com.mchange.c3p0>
 	</properties>
 
 	<dependencies>
@@ -21,6 +22,16 @@
 			<version>${cas.version}</version>
 			<type>war</type>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jasig.cas</groupId>
+			<artifactId>cas-server-support-jdbc</artifactId>
+			<version>${cas.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>${com.mchange.c3p0}</version>
 		</dependency>
 	</dependencies>
 
@@ -59,10 +70,11 @@
 				<version>${maven-jetty-plugin.version}</version>
 				<configuration>
 					<httpConnector>
-		        		<port>8090</port>
-		        	</httpConnector>
+						<port>8090</port>
+					</httpConnector>
 					<webApp>
 						<contextPath>/cas</contextPath>
+						<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
 					</webApp>
 					<jettyXml>
 						${basedir}/src/main/resources/jetty.xml,${basedir}/src/main/resources/jetty-ssl-context.xml,${basedir}/src/main/resources/jetty-ssl.xml,${basedir}/src/main/resources/jetty-https.xml
